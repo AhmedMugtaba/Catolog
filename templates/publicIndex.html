@@ -1,21 +1,20 @@
-{% include 'base.html' %}
- 
-{% block content %}
+{% include 'base.html' %} 
 
+{% block content %}
 <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-3">Welcome to Storey!</h1>
-    <p class="lead">Build your own online store today with Storey</p>
-    <a class="btn btn-Primary" href="/catalog/new">Add New Store</a>
-  </div>
+    <div class="container">
+        <h1 class="display-3">Welcome to Storey!</h1>
+        <p class="lead">Build your own online store today with Storey</p>
+        <a class="btn btn-Primary" href="/catalog/new">Add New Store</a>
+    </div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-md">
-			<div class="">
-						{% for category in categories %}
-						<a class="noLine" href="{{url_for('catalogItemList', category_id = category.id)}}"><h3> {{category.name}}</h3></a>
-		</div>
-	</div>
-</div>
-{% endblock %}
+    <div class="row">
+        <div class="col-md">
+            <div class="">
+                {% for category in categories %}
+                <a class="noLine" href="{{url_for('catalogItemList', category_id = category.id)}}"><h3> {{category.name}}</h3></a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
