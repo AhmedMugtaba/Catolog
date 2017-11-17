@@ -267,8 +267,7 @@ def editCategory(category_id):
 
 # Delete Route
 
-@app.route('/catalog/<int:category_id>/delete/', methods=['GET', 'POST'
-           ])
+@app.route('/catalog/<int:category_id>/delete/', methods=['GET', 'POST'])
 @authenticate
 def deleteCategory(category_id):
     categoryToDelete = session.query(Category).filter_by(id=category_id).one()
@@ -299,7 +298,7 @@ def catalogItemList(category_id):
 
 # Create a New Item Route
 
-@app.route('/catalog/<int:category_id>/items/new/', 
+@app.route('/catalog/<int:category_id>/items/new/',
     methods=['GET','POST'])
 @authenticate
 def newItem(category_id):
