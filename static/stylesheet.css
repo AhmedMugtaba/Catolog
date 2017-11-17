@@ -1,0 +1,18 @@
+
+.noLine {
+	text-decoration: none;
+}
+
+.form-margin {
+	margin: 10px;
+}
+
+.form-center  {
+	width: 30%; 
+	margin: 30px auto;
+}
+
+.container {
+	margin:40px;
+}
+

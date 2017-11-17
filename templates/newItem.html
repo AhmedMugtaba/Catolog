@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+
+
+{% block newItem %}
+<div class="container">
+	<div class="row">
+		<div class="col-md">
+		<div class="form-group ">
+		<h1 class="text-center">Add new Product</h1>
+		<form action="{{url_for('newItem', category_id=category_id )}}" method = 'POST'>
+		<div class="form-center">
+			 <p>Add Product:</p>
+            <input class="form-control" type='text' size='30' name='name'>
+            <input class="btn btn-xs btn-primary form-margin" type='submit' value='Create'>
+		</div>
+        </form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

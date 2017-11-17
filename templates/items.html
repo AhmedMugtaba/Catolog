@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+
+{% block items %}
+<div class="container">
+	<div class="row">
+		<div class="col-md">
+			<span>Welcome To</span>
+			<a href="{{url_for('showCategory')}}"><strong>{{category.name}}</strong></a>
+			<h4><a href="{{url_for('newItem', category_id = category.id)}}">Add A New Product</a></h4>
+
+			<div>
+				{% for i in items %}
+				<p>{{i.name}}</p>
+				<a class="btn btn-xs btn-warning" href="{{url_for('editItem', category_id=category.id, item_id=i.id )}}">Edit</a>
+				<a class="btn btn-xs btn-danger" href="{{url_for('deleteItem', category_id=category.id, item_id=i.id )}}">Delete</a>
+				{% endfor %}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

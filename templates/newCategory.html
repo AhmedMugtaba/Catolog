@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+
+{% block newCatagory %}
+<div class="container">
+	<div class="row">
+		<div class="col-md">
+		<div>
+		<h1 class="text-center">Add new Store</h1>
+		<form action="#" method="POST">
+		<div  class="form-group form-center">
+			<p> Store name:</p>
+			<input class="form-control" type ='text' size='30' name='name' placeholder="Store Name">
+            <input class="form-margin btn btn-xs btn-primary" type='submit' value='Create'>
+            <a class="btn btn-xs btn-primary btn-block" href="/catalog">Go Back</a>
+		</div>
+		</form>
+		
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
