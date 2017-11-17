@@ -13,7 +13,8 @@
         <div class="col-md">
             <div class="">
                 {% for category in categories %}
-                <a class="noLine" href="{{url_for('catalogItemList', category_id = category.id)}}"><h3> {{category.name}}</h3></a>
+            <a class="noLine" href="{{url_for('catalogItemList', category_id = category.id)}}"><h3> {{category.name}}</h3></a>
+                {% endfor %}
             </div>
         </div>
     </div>

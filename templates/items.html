@@ -11,8 +11,8 @@
                 {% for i in items %}
                 <p>{{i.name}}</p>
                 <a class="btn btn-xs btn-warning" href="{{url_for('editItem', category_id=category.id, item_id=i.id )}}">Edit</a>
-                <a class="btn btn-xs btn-danger" href="{{url_for('deleteItem', category_id=category.id, item_id=i.id )}}">Delete</a> {% endfor %}
-
+                <a class="btn btn-xs btn-danger" href="{{url_for('deleteItem', category_id=category.id, item_id=i.id )}}">Delete</a> 
+                {% endfor %}
             </div>
         </div>
     </div>
