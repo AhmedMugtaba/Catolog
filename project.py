@@ -57,7 +57,7 @@ def authenticate(f):
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
-    print 0
+
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -77,7 +77,7 @@ def gconnect():
             'Failed to upgrade the authorization code.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    print 1
+
     # Check that the access token is valid.
 
     access_token = credentials.access_token
@@ -104,7 +104,7 @@ def gconnect():
             "Token's user ID doesn't match given user ID."), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    print 1.5
+
     # Verify that the access token is valid for this app.
 
     if result['issued_to'] != CLIENT_ID:
@@ -122,7 +122,7 @@ def gconnect():
             'Current user is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
-    print 2
+
     # Store the access token in the session for later use.
     login_session['provider'] = 'google'
     login_session['access_token'] = credentials.access_token
@@ -244,7 +244,7 @@ def showCategory():
     if 'username' not in login_session:
         return render_template('publicIndex.html',
                                categories=categories, users=users)
-    return render_template('index.html', categories=categories)
+    return render_template('index.html', categories=categories, users=users)
 
 
 # New Catagegry Route
@@ -256,8 +256,6 @@ def newCategory():
         newCategory = Category(name=request.form['name'],
                                user_id=login_session['user_id'])
         session.add(newCategory)
-        flash('New Restaurant %s Successfully Created'
-              % newCategory.name)
         session.commit()
         return redirect(url_for('showCategory'))
     else:
@@ -270,6 +268,8 @@ def newCategory():
 @authenticate
 def editCategory(category_id):
     editedCategory = session.query(Category).filter_by(id=category_id).one()
+    if editedCategory.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this store');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             editedCategory.name = request.form['name']
@@ -285,6 +285,8 @@ def editCategory(category_id):
 @authenticate
 def deleteCategory(category_id):
     categoryToDelete = session.query(Category).filter_by(id=category_id).one()
+    if categoryToDelete.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to delete this store');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(categoryToDelete)
         session.commit()
@@ -304,18 +306,18 @@ def deleteCategory(category_id):
 @app.route('/catalog/<int:category_id>/items/')
 def catalogItemList(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
-    creator = session.query(User).all()
+    users = session.query(User).all()
     items = session.query(Item).filter_by(category_id=category_id).all()
     if 'username' not in login_session:
         return render_template('publicItems.html',
                                category=category,
                                items=items,
-                               creator=creator)
+                               users=users)
     else:
         return render_template('items.html',
                                category=category,
                                items=items,
-                               creator=creator)
+                               users=users)
 
 
 # Create a New Item Route
@@ -324,9 +326,14 @@ def catalogItemList(category_id):
            methods=['GET', 'POST'])
 @authenticate
 def newItem(category_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    if login_session['user_id'] != category.user_id:
+        return "<script>function myFunction() {alert('You are not authorized to add item to this list!');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         newItem = Item(name=request.form['name'],
+                       user_id=login_session['user_id'],
                        category_id=category_id)
+
         session.add(newItem)
         session.commit()
         return redirect(url_for('catalogItemList',
@@ -342,6 +349,8 @@ def newItem(category_id):
 @authenticate
 def editItem(category_id, item_id):
     editedItem = session.query(Item).filter_by(id=item_id).one()
+    if editedItem.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this item');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -362,6 +371,8 @@ def editItem(category_id, item_id):
 @authenticate
 def deleteItem(category_id, item_id):
     itemToDelete = session.query(Item).filter_by(id=item_id).one()
+    if itemToDelete.user_id != login_session['user_id']:
+        return "<script>function myFunction() {alert('You are not authorized to edit this item');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
