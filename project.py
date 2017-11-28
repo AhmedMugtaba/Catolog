@@ -1,4 +1,4 @@
-#!/usr/bin/python
+F#!/usr/bin/python
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, flash, \
     jsonify, url_for
@@ -110,7 +110,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(json.dumps(
             "Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        # print "Token's client ID does not match app's."
         response.headers['Content-Type'] = 'application/json'
         return response
 
