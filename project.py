@@ -239,7 +239,7 @@ def disconnect():
 @app.route('/catalog/')
 def showCategory():
     categories = session.query(Category).all()
-    users = session.query(User).all()
+    users = session.query(User).filter(User.name).all()
     print login_session
     if 'username' not in login_session:
         return render_template('publicIndex.html',

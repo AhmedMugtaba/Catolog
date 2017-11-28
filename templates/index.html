@@ -13,6 +13,10 @@
             <div class="">
                 {% for category in categories %}
                 <a class="noLine" href="{{url_for('catalogItemList', category_id = category.id)}}"><h3> {{category.name}}</h3></a>
+                {% for user in users %}
+                <h6> Created by { user.name }</h6>
+                {% endfor %}
+                
                 <a class="btn btn-xs btn-warning" href="{{url_for('editCategory', category_id = category.id)}}">Edit</a>
                 <a class="btn btn-xs btn-danger" href="{{url_for('deleteCategory', category_id = category.id)}}">Delete</a> {% endfor %}
 
