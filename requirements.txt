@@ -1,0 +1,6 @@
+Flask
+Flask-RESTful
+Flsak-SQLAlchemy
+oauth2client.client
+uwsgi
+ 
