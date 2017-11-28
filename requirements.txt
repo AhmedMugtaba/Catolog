@@ -1,5 +1,9 @@
 Flask
+requests
+httplib2
+oauth2client 
 Flask-RESTful
-Flsak-SQLAlchemy
+sqlalchemy
+bleach 
 uwsgi
  
